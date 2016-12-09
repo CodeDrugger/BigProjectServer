@@ -16,13 +16,13 @@ public class LineTask implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		String[] data = msg.split(":|\\^\\&\\^");
-		if(data.length != 3) 
+		String[] data = msg.split("\\^\\&\\^");
+		if(data.length != 2) 
 			System.out.println("GG");
 		try {
-			Socket socket = new Socket(data[0], Integer.parseInt(data[1]));
+			Socket socket = new Socket(data[0], 10240);
 			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-			out.writeUTF(data[2]);
+			out.writeUTF(data[1]);
 			out.flush();
 			out.close();
 			socket.close();

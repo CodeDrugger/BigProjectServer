@@ -16,7 +16,7 @@ public class SeverInit {
 	{
 		cachedThreadPool = Executors.newCachedThreadPool();
 		try {
-			setServerSocket(new ServerSocket(8888));
+			setServerSocket(new ServerSocket(10240));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
