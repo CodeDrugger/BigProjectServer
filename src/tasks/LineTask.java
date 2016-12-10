@@ -4,25 +4,27 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Map;
 
 public class LineTask implements Runnable {
-	private String msg;
-	
-	public LineTask(String msg) {
+	private String[] data;
+	private Map<String, Socket> socketMap;
+
+	public LineTask(String[] data, Map<String, Socket> socketMap) {
 		super();
-		this.msg = msg;
+		this.data = data;
+		this.socketMap = socketMap;
 	}
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		String[] data = msg.split("\\^\\&\\^");
 		if(data.length != 2) 
 			System.out.println("GG");
 		try {
-			Socket socket = new Socket(data[0], 10240);
+			Socket socket = socketMap.get(data[1]);
 			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-			out.writeUTF(data[1]);
+			out.writeUTF(data[2]);
 			out.flush();
 			out.close();
 			socket.close();
